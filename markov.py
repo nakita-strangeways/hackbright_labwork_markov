@@ -82,13 +82,10 @@ def make_text(chains):
         else:
             words.append(random.choice(chains[new_bigram]))
 
+    words[0] = words[0].title()
+    return " ".join(words)
 
-    print(words)
-
-
-    #return " ".join(words)
-
-print(make_text(make_chains(open_and_read_file("green-eggs.txt"))))
+# print(make_text(make_chains(open_and_read_file("green-eggs.txt"))))
 
 input_path = "green-eggs.txt"
 
@@ -101,4 +98,4 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
-#print(random_text)
+print(random_text)
