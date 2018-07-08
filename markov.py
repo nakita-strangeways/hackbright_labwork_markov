@@ -10,7 +10,7 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    f = open("file_path","r")
+    f = open(file_path,"r")
     file_contents = f.read()
     f.close()
 
@@ -42,11 +42,18 @@ def make_chains(text_string):
     """
 
     chains = {}
+    words = text_string.split()
 
-    # your code goes here
+#    for item in ls:
+    for i in range(len(words)):
+        print(words[i:i+2])
+
+
+
 
     return chains
 
+print(make_chains(open_and_read_file("green-eggs.txt")))
 
 def make_text(chains):
     """Return text from chains."""
@@ -69,4 +76,4 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
-print random_text
+#print(random_text)
