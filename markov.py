@@ -45,12 +45,20 @@ def make_chains(text_string):
     words = text_string.split()
 
 #    for item in ls:
-    for i in range(len(words)):
-        print(words[i:i+2])
+    for i in range(len(words) - 1):
+        bigram = words[i:i+2]
+        bigram_t = tuple(bigram)
+
+        if i == len(words)-2:
+            pass
+        else:
+            chains[bigram_t] = chains.get(bigram_t,[]) + [words[i+2]]
+        #print(bigram,words[i+2])
 
 
 
-
+        #for i in chains.items():
+         #   print (i)
     return chains
 
 print(make_chains(open_and_read_file("green-eggs.txt")))
