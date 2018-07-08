@@ -76,7 +76,7 @@ def make_text(chains, n_gram):
     words = []
 
     random_key = random.choice(list(chains.keys()))
-    words += list(random_key)
+    words.extend(random_key)
 
     # random_value = random.choice(chains[random_key])
 
@@ -94,14 +94,11 @@ def make_text(chains, n_gram):
             words.append(random.choice(chains[new_gram]))
             n -= 1
 
-    words[0] = words[0].title()
-
+    words[0] = words[0][0].upper() + words[0][1:]
     words_str = " ".join(words)
-
+    punct_list = [".","!","?"]
     for i in range( (len(words_str) -1), 0, -1):
-        if words_str[i] == "." \
-        or words_str[i] == "?" \
-        or words_str[i] == "!":
+        if words_str[i] in punct_list:
             break
 
         else:
@@ -126,4 +123,10 @@ chains = make_chains(input_text,argv[3])
 random_text = make_text(chains, argv[3])
 
 #random_text = make_text(chains)
+
+log_file = open("markov_tweets.txt", "a")
+#log_file_contents = log_file.read() + "\n" + random_text
+random_text = "\n" + random_text
+log_file.write(random_text)
+log_file.close()
 print(random_text)
