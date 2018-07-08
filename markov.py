@@ -1,6 +1,7 @@
 """Generate Markov text from text files."""
 
-from random import choice
+import random
+#import choice
 
 
 def open_and_read_file(file_path):
@@ -45,33 +46,49 @@ def make_chains(text_string):
     words = text_string.split()
 
 #    for item in ls:
-    for i in range(len(words) - 1):
+    for i in range(len(words) - 2):
         bigram = words[i:i+2]
         bigram_t = tuple(bigram)
-
-        if i == len(words)-2:
-            pass
-        else:
-            chains[bigram_t] = chains.get(bigram_t,[]) + [words[i+2]]
+        chains[bigram_t] = chains.get(bigram_t,[]) + [words[i+2]]
         #print(bigram,words[i+2])
 
 
 
-        #for i in chains.items():
-         #   print (i)
+        # for i in chains.items():
+        #     print (i)
     return chains
 
-print(make_chains(open_and_read_file("green-eggs.txt")))
+# print(make_chains(open_and_read_file("green-eggs.txt")))
 
 def make_text(chains):
     """Return text from chains."""
 
     words = []
 
-    # your code goes here
+    random_key = random.choice(list(chains.keys()))
+    words += list(random_key)
 
-    return " ".join(words)
+    random_value = random.choice(chains[random_key])
 
+    words.append(random_value)
+
+    while True:
+
+        new_bigram = tuple(words[-2:])
+
+        if new_bigram not in chains.keys():
+            break
+
+        else:
+            words.append(random.choice(chains[new_bigram]))
+
+
+    print(words)
+
+
+    #return " ".join(words)
+
+print(make_text(make_chains(open_and_read_file("green-eggs.txt"))))
 
 input_path = "green-eggs.txt"
 
