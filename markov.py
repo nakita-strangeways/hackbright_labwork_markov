@@ -57,12 +57,12 @@ def make_chains(text_string,n_gram):
 
 #    for item in ls:
     for i in range(len(words) - n_gram):
+
         gram = words[i:i+n_gram]
+
         gram_t = tuple(gram)
         chains[gram_t] = chains.get(gram_t,[]) + [words[i+n_gram]]
         #print(bigram,words[i+2])
-
-
 
         # for i in chains.items():
         #     print (i)
@@ -74,6 +74,7 @@ def make_text(chains, n_gram):
     """Return text from chains."""
 
     words = []
+    char_length = 0
 
     random_key = random.choice(list(chains.keys()))
     words.extend(random_key)
@@ -81,9 +82,14 @@ def make_text(chains, n_gram):
     # random_value = random.choice(chains[random_key])
 
     # words.append(random_value)
-    n = 240
+    n = 241
 
-    while len(" ".join(words)) < n:
+    for word in words:
+
+        char_length += len(word) +1
+
+
+    while char_length < n:
 
         new_gram = tuple(words[n_gram *-1:])
 
@@ -91,8 +97,10 @@ def make_text(chains, n_gram):
             break
 
         else:
-            words.append(random.choice(chains[new_gram]))
-            n -= 1
+            next_word = random.choice(chains[new_gram])
+            words.append(next_word)
+            char_length += len(next_word) +1
+            #n -= 1
 
     words[0] = words[0][0].upper() + words[0][1:]
     words_str = " ".join(words)
